@@ -5,15 +5,31 @@ from fixtures import generate_word, generate_number
 
 # Add id here ; whenever a new doc is added, check whether it's already in the database
 # in which case update it if needed as well as indexes
-fields = ["email", "phone", "fingerprint"]
+
+id_field = "id"
+fields = ["email", "phone", "fingerprint", "peid"]
 indexes = {}
 objects = []
+id_index = {}
+
 
 
 def add_to_index(field, v, o):
     indexes[field] = indexes.get(field) or {}
     indexes[field][v] = indexes[field].get(v) or []
     indexes[field][v].append(o)
+
+
+def add_to_id_index(o):
+    v = o.get(id_field)
+
+    if v is None:
+        return
+
+    if type(v) is str and len(v) == 0:
+        return
+
+    id_index[v] = o
 
 
 def get_from_index(field, v):
@@ -23,8 +39,15 @@ def get_from_index(field, v):
         return []
 
 
+def unregister_object(o):
+    pass
+    # Add logic to remove object from all indexes
+
+
 def register_object(o):
     objects.append(o)
+    add_to_id_index(o)
+
     for field in fields:
         if o.get(field):
             v = o[field]

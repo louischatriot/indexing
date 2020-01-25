@@ -1,9 +1,9 @@
 from timing import time_execution
 from mem import print_memory_usage
-from index import register_object, get_from_index
+from index import register_object, get_from_index, objects
 import csv
 
-filename = "NONE"
+filename = ""
 
 headers = None
 
@@ -20,6 +20,7 @@ with time_execution("Loading database in index"):
 
                 register_object(o)
 
+
 print_memory_usage()
 
 
@@ -32,5 +33,7 @@ with time_execution(f"Searching {N} times"):
         res += len(get_from_index("email", some_email))
 
 print(len(get_from_index("email", some_email)))
+
+print(len(objects))
 
 
