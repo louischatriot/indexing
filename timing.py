@@ -9,4 +9,11 @@ class time_execution:
 
     def __exit__(self, exc_type, exc_value, traceback):
         el = int((time.time() - self.start) * 1000)
-        print(f"{self.message} - {el} ms")
+        suffix = "ms"
+
+        if el > 5000:
+            el = int(el / 1000)
+            suffix = "s"
+
+
+        print(f"{self.message} - {el} {suffix}")

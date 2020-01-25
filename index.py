@@ -13,8 +13,9 @@ print_memory_usage()
 
 docs = []
 ind = {}
+address_ind = {}
 
-N = 1000000
+N = 300000
 
 with time_execution("Creating database"):
     for i in range(0,N):
@@ -27,6 +28,7 @@ with time_execution("Creating database"):
         }
         docs.append(doc)
         ind[doc["name"]] = doc
+        address_ind[doc["address"]] = doc
 
 
 print_memory_usage()
